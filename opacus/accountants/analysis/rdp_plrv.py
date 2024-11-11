@@ -16,12 +16,12 @@ def convert_mgf_rdp(args, order):
         MGF1_1 = ((1-(args['a1']*(order-1)*args['theta']))**(-args['k']))  # Gamma
         MGF1_3 = (args['lam']/(args['lam']-args['a3']*(order-1)))  # Exponential
         MGF1_4 = ((np.exp(args['a4']*(order-1)*args['b'])-np.exp(args['a4']*(order-1)*args['a']))/(args['a4']*(order-1)*(args['b']-args['a'])))  # Uniform
-        MGF1 = MGF1_1 * MGF1_3 * MGF1_4
+        MGF1 = MGF1_1# * MGF1_3 * MGF1_4 #MMH
         
         MGF2_1 = ((1-args['a1']*(-order)*args['theta'])**(-args['k']))  # Gamma
         MGF2_3 = (args['lam']/(args['lam']-args['a3']*(-order)))  # Exponential
         MGF2_4 = ((np.exp(args['a4']*(-order)*args['b'])-np.exp(args['a4']*(-order)*args['a']))/(args['a4']*(-order)*(args['b']-args['a'])))  # Uniform
-        MGF2 = MGF2_1 * MGF2_3 * MGF2_4
+        MGF2 = MGF2_1# * MGF2_3 * MGF2_4 #MMH
         
         rdp_lmo_ = (1/(order-1)) * np.log((order*MGF1+(order-1)*MGF2)/(2*order-1))
     except:
@@ -58,7 +58,8 @@ def M_p(args, moment):
     lam = args['lam']
     #print(mgf_truncated_normal(l, u, mu, sigma, moment))
     #return mgf_truncated_normal(l, u, mu, sigma, moment)*(mgf_gamma(moment*a1, theta, k))*mgf_uniform(moment*a4, a, b)
-    return (mgf_expon(moment*a3, lam)*(mgf_gamma(moment*a1, theta, k))*mgf_uniform(moment*a4, a, b))
+    #return (mgf_expon(moment*a3, lam)*(mgf_gamma(moment*a1, theta, k))*mgf_uniform(moment*a4, a, b))
+    return (mgf_gamma(moment*a1, theta, k)) #MMH
     #return (mgf_gamma(moment*a1, theta, k))*mgf_uniform(moment*a4, a, b)
     
 def mgf_gamma(moment, theta, k):
